@@ -116,7 +116,10 @@ class CloudStore {
 
   async load() {
     try {
-      const snap = await this.core.get();
+      const snap = await Promise.race([
+        this.core.get(),
+        new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 8000)),
+      ]);
       if (!snap.exists) return localStore.load();
       const state = JSON.parse(JSON.stringify(snap.data()));
       state.days = {};

@@ -22,7 +22,7 @@ export class Onboarding {
       stepGoal: g.profile.stepGoal,
       weightKg: g.profile.weightKg,
       gps: false,
-      demo: !('ontouchstart' in window),
+      demo: !!window.TOKOTOKO_PREVIEW || !('ontouchstart' in window),
     };
     this.nameTouched = false;
     document.body.classList.add('onboarding');
@@ -87,7 +87,7 @@ export class Onboarding {
             <button class="btn green" style="min-height:40px" data-act="motion" ${t.motion.state === 'on' ? 'disabled' : ''}><span>${motionLabel || 'Allow'}</span></button></div>
           <div class="perm">${icon('walk', 30)}<div><b>Demo walk</b><small>On a computer? Simulated steps let you explore right away.</small></div>
             <button class="toggle" data-act="demo" aria-pressed="${d.demo}" aria-label="Demo walk"></button></div>
-          <p class="note">Your data stays on this device.</p>
+          <p class="note">${window.TOKOTOKO_PREVIEW ? 'This preview can’t read location or motion sensors, so demo walk is on. Use “Sync steps” in Buddy settings to add steps from your phone’s health app.' : 'Your data stays on this device.'}</p>
           <div class="modal-actions">
             <button class="btn gray" data-act="back"><span>Back</span></button>
             <button class="btn pink big" data-act="finish"><span>いってきます!</span></button>

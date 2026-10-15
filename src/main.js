@@ -2,6 +2,7 @@
 import { World } from './world/scene.js';
 import { Tracker } from './game/tracker.js';
 import { Game } from './game/game.js';
+import { openStorage } from './game/state.js';
 import { UI } from './ui/ui.js';
 import { installSprites } from './ui/pixel.js';
 import { setBar } from './ui/common.js';
@@ -42,8 +43,10 @@ async function boot() {
   progress(0.8, 'Waking up your buddy…');
   await new Promise((r) => setTimeout(r, 30));
 
+  const storage = await openStorage();
+  const saved = await storage.load();
   const tracker = new Tracker();
-  const game = new Game(world, tracker);
+  const game = new Game(world, tracker, storage, saved);
   const ui = new UI(game, world, tracker);
   game.init();
   ui.init();

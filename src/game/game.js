@@ -1,6 +1,6 @@
 // Game orchestrator: piggy-bank economy, movement on the map, visits &
 // stamps, quests, omikuji, wardrobe and the auto-diary.
-import { storage, defaultState, newDay } from './state.js';
+import { defaultState, newDay } from './state.js';
 import { Pathfinder, pathLength, pointAlong } from './journey.js';
 import { generateQuests, questDone, todaysPicks, drawOmikuji as rollOmikuji } from './quests.js';
 import { FOOD_BY_ID, SPEECH, OMIKUJI, levelFromXp } from './data.js';
@@ -12,10 +12,11 @@ const LM = Object.fromEntries(LANDMARKS.map((l) => [l.id, l]));
 const MILESTONES = [1000, 3000, 5000, 10000, 15000, 20000];
 
 export class Game {
-  constructor(world, tracker) {
+  constructor(world, tracker, storage, saved) {
     this.world = world;
     this.tracker = tracker;
-    this.state = storage.load() || defaultState();
+    this.storage = storage;
+    this.state = saved || defaultState();
     this.pf = new Pathfinder(world.map);
     this.listeners = {};
     this.route = null;
@@ -48,8 +49,8 @@ export class Game {
 
   save(now = false) {
     clearTimeout(this.saveTimer);
-    if (now) storage.save(this.state);
-    else this.saveTimer = setTimeout(() => storage.save(this.state), 1200);
+    if (now) { this.storage.save(this.state); this.storage.flush(); }
+    else this.saveTimer = setTimeout(() => this.storage.save(this.state), 1200);
   }
 
   changed(what = 'all') {
@@ -557,9 +558,10 @@ export class Game {
     this.changed('profile');
   }
 
-  resetAll() {
-    storage.clear();
-    this.state = defaultState();
+  async resetAll() {
+    clearTimeout(this.saveTimer);
+    this.save = () => {};
+    await this.storage.clear();
     location.reload();
   }
 

@@ -293,7 +293,7 @@ export class Sheets {
         <div class="setting"><div class="s-text"><b>Sound effects</b><small>Chiptune blips and fanfares.</small></div><div class="s-ctl"><button class="toggle" data-act="toggle" data-k="sound" aria-pressed="${p.sound}" aria-label="Sound"></button></div></div>
         <div class="setting"><div class="s-text"><b class="danger">Start over</b><small>Erase the diary, stamps, piggy bank and buddy on this device.</small></div><div class="s-ctl"><button class="btn red" style="min-height:38px" data-act="reset"><span>Reset</span></button></div></div>
       </div>
-      <p class="note">Everything is stored on this device only. Tokotoko never uploads your location.</p>`;
+      <p class="note">${g.storage.kind === 'cloud' ? 'Your progress is saved privately to your account. Location is never uploaded.' : 'Everything is stored on this device only. Tokotoko never uploads your location.'}</p>`;
   }
 
   wireSettings(body) {

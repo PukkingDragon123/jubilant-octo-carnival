@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>Tokotoko Tokyo</title>
+<meta name="description" content="Walk with a voxel buddy across a tiny Tokyo. Steps fill your calorie piggy bank, snacks spend it, and a diary writes itself.">
+<meta name="theme-color" content="#2b2545">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Pixelify+Sans:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="styles/app.css">
+</head>
+<body>
+<!-- app:start -->
+<div id="app" class="app">
+  <canvas id="world" aria-label="Voxel map of Tokyo"></canvas>
+  <div id="overlay" class="overlay" aria-hidden="true"></div>
+
+  <header class="hud" id="hud">
+    <button class="hud-portrait panel-dark" id="hud-buddy" aria-label="Open buddy">
+      <img id="hud-portrait" class="px" alt="" width="56" height="56">
+      <span class="lv" id="hud-level">Lv.1</span>
+    </button>
+    <div class="hud-main panel-dark">
+      <div class="hud-row">
+        <b class="hud-name" id="hud-name">Kinako</b>
+        <span class="hearts" id="hud-hearts"></span>
+      </div>
+      <div class="bar seg-green" id="hud-steps-bar"></div>
+      <div class="hud-row small">
+        <span id="hud-steps-label">0 / 8,000 steps</span>
+        <span id="hud-clock"></span>
+      </div>
+    </div>
+    <button class="piggy panel-dark" id="hud-piggy" aria-label="Open piggy bank">
+      <span class="pig-icon" id="hud-pig"></span>
+      <span class="piggy-num"><b id="hud-coins">0</b><small>kcal</small></span>
+    </button>
+  </header>
+
+  <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+
+  <div class="map-tools" id="map-tools">
+    <button class="tool btn red" id="tool-omikuji" aria-label="Draw today's omikuji"><span class="ico" data-icon="omikuji"></span><span class="tl">おみくじ</span></button>
+    <button class="tool btn sky" id="tool-overview" aria-label="See all of Tokyo"><span class="ico" data-icon="globe"></span><span class="tl">Tokyo</span></button>
+    <button class="tool btn cream" id="tool-recenter" aria-label="Back to buddy" hidden><span class="ico" data-icon="target"></span><span class="tl">Buddy</span></button>
+  </div>
+
+  <button class="today-pill panel-light" id="today-pill"></button>
+
+  <div class="bottom-stack">
+    <button class="dest-chip panel-dark" id="dest-chip" hidden></button>
+    <button class="walk-fab btn pink" id="demo-walk" hidden><span class="ico" data-icon="walk"></span><span id="demo-walk-label">Walk</span></button>
+  </div>
+
+  <nav class="nav panel-dark" id="nav" aria-label="Main">
+    <button data-tab="map" class="on"><span class="ico" data-icon="pin"></span><span class="nav-jp">地図</span><span class="nav-en">Map</span></button>
+    <button data-tab="quests"><span class="ico" data-icon="scroll"></span><span class="nav-jp">クエスト</span><span class="nav-en">Quests</span><i class="badge" id="badge-quests" hidden></i></button>
+    <button data-tab="shop"><span class="ico" data-icon="shop"></span><span class="nav-jp">コンビニ</span><span class="nav-en">Snacks</span></button>
+    <button data-tab="diary"><span class="ico" data-icon="book"></span><span class="nav-jp">日記</span><span class="nav-en">Diary</span></button>
+    <button data-tab="buddy"><span class="ico" data-icon="buddy"></span><span class="nav-jp">相棒</span><span class="nav-en">Buddy</span></button>
+  </nav>
+
+  <section class="sheet" id="sheet" hidden aria-modal="false" role="dialog" aria-labelledby="sheet-title">
+    <div class="sheet-panel panel">
+      <div class="sheet-head">
+        <div>
+          <h2 id="sheet-title">Quests</h2>
+          <p class="sheet-sub" id="sheet-sub"></p>
+        </div>
+        <button class="btn red icon-btn" id="sheet-close" aria-label="Close"><span class="ico" data-icon="close"></span></button>
+      </div>
+      <div class="sheet-tabs" id="sheet-tabs"></div>
+      <div class="sheet-body" id="sheet-body"></div>
+    </div>
+  </section>
+
+  <div class="modal" id="modal" hidden role="dialog" aria-modal="true">
+    <div class="modal-card panel" id="modal-card"></div>
+  </div>
+
+  <div class="onboard" id="onboard" hidden></div>
+  <div class="fx" id="fx" aria-hidden="true"></div>
+
+  <div class="loading" id="loading">
+    <div class="loading-card">
+      <div class="logo"><span class="logo-jp">とことこ東京</span><span class="logo-en">TOKOTOKO TOKYO</span></div>
+      <div class="bar seg-pink" id="loading-bar"></div>
+      <p id="loading-text">Building a tiny Tokyo…</p>
+    </div>
+  </div>
+</div>
+<script type="module" src="src/main.js"></script>
+<!-- app:end -->
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "Tokotoko Tokyo",
+  "short_name": "Tokotoko",
+  "description": "Walk with a voxel buddy across a tiny Tokyo. Steps fill your calorie piggy bank, snacks spend it, and a diary writes itself.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#2b2545",
+  "theme_color": "#2b2545",
+  "lang": "en",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

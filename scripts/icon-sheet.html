@@ -1,0 +1,20 @@
+<!doctype html><meta charset="utf-8"><title>Icon sheet</title>
+<style>body{background:#2e2752;color:#fff;font:12px monospace;display:flex;flex-wrap:wrap;gap:10px;padding:10px}
+figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px;width:84px}
+img{image-rendering:pixelated}
+.btn{border-style:solid;border-width:9px 6px 12px;border-image:var(--btn-pink) 12 8 16 8 fill stretch;image-rendering:pixelated;padding:2px 10px;color:#fff;font:16px monospace}
+.panel{border-style:solid;border-width:12px 12px 15px;border-image:var(--panel-paper) 16 16 20 16 fill stretch;image-rendering:pixelated;width:200px;height:80px;color:#3a2b3f}
+</style>
+<body>
+<script type="module">
+import { ICONS, icon, installSprites } from '../src/ui/pixel.js';
+installSprites();
+for (const name of Object.keys(ICONS)) {
+  const f = document.createElement('figure');
+  f.innerHTML = icon(name, 56) + `<figcaption>${name}</figcaption>`;
+  document.body.appendChild(f);
+}
+const b = document.createElement('div');
+b.innerHTML = `<button class="btn">PLAY</button> <button class="btn" style="border-image-source:var(--btn-green)">GO</button> <button class="btn" style="border-image-source:var(--btn-blue-down)">DOWN</button><div class="panel">Paper panel</div><div class="panel" style="border-image-source:var(--panel-dark);border-image-slice:8 8 12 8 fill;border-width:6px 6px 9px;color:#fff">Dark panel</div>`;
+document.body.appendChild(b);
+</script>

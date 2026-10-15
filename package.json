@@ -1,0 +1,12 @@
+{
+  "name": "tokotoko-tokyo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A cute voxel walking & food diary game set in a tiny Tokyo.",
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes http-server -c-1 -p 5173 .",
+    "check": "node scripts/check-world.mjs"
+  },
+  "license": "MIT"
+}
